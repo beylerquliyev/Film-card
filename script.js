@@ -81,18 +81,62 @@ let Films={
 
   let zz=Films.Search.map(function(item,index){
     return `<div class="card col-4  " style="width: 18rem;">
-    <img src="${Films.Search[index].Poster}">
+    <img src="${item.Poster}">
     <div class="">
-      <h5 class="card-title">${Films.Search[index].Title}</h5>
+      <h5 class="card-title">${item.Title}</h5>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">Year:${Films.Search[index].Year}</li>
-      <li class="list-group-item">Rating:${Films.Search[index].imdbID}</li>
-      <li class="list-group-item">Type:${Films.Search[index].Type}</li>
+      <li class="list-group-item">Year:${item.Year}</li>
+      <li class="list-group-item">Rating:${item.imdbID}</li>
+      <li class="list-group-item">Type:${item.Type}</li>
     </ul>
    
   </div>
-`
+  `
   })
 
   fullCard.innerHTML=zz.join("")
+
+let inpt1=document.querySelector("#inpt1")
+
+inpt1.addEventListener("input",function(){
+
+ 
+let inptValue=inpt1.value.toLowerCase()
+let filtr=Films["Search"].filter(function(e,i){
+  let title=e.Title.toLowerCase()
+  if(title.includes(inptValue)){
+    return e
+  }
+})
+
+fullCard.innerHTML=filtr.map(function(item,index){
+  return `<div class="card col-4  " style="width: 18rem;">
+  <img src="${item.Poster}">
+  <div class="">
+    <h5 class="card-title">${item.Title}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Year:${item.Year}</li>
+    <li class="list-group-item">Rating:${item.imdbID}</li>
+    <li class="list-group-item">Type:${item.Type}</li>
+  </ul>
+ 
+</div>
+`
+}).join("")
+
+
+
+
+
+
+
+})
+
+let btn1=document.querySelector("#btn1")
+btn1.addEventListener("click",function(){
+  fullCard.innerHTML=zz.join("")
+  inpt1.value=""
+  
+})
